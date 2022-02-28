@@ -8,6 +8,6 @@
         public int VestingPeriod { get; set; }
         public DateTime EndingYear { get; set; }
         public decimal ExpectedAnnualGrantChange { get; set; }
-        public decimal ExpectedAnnualizedPriceGrowth { get; set; }
+        public decimal ExpectedAnnualizedPriceChange { get; set; }
     }
 }

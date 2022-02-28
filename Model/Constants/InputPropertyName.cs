@@ -12,7 +12,7 @@ namespace Model.Constants
         public const string InitialGrantAmount = "InitialGrantAmount";
         public const string InitialStockPrice = "InitialStockPrice";
         public const string VestingPeriod = "VestingPeriod";
-        public const string ExpectedAnnualizedPriceGrowth = "ExpectedAnnualizedPriceGrowth";
+        public const string ExpectedAnnualizedPriceChange = "ExpectedAnnualizedPriceChange";
         public const string EndingYear = "EndingYear";
         public const string ExpectedAnnualGrantChange = "ExpectedAnnualGrantChange";
     }

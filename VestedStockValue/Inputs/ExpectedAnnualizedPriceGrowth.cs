@@ -14,16 +14,16 @@ namespace VestedStockValue.Inputs
             do
             {
                 if (++iteration > 1)
-                    Console.WriteLine(InputValidationMessage.GetValidationMessage(InputPropertyName.ExpectedAnnualizedPriceGrowth));
+                    Console.WriteLine(InputValidationMessage.GetValidationMessage(InputPropertyName.ExpectedAnnualizedPriceChange));
                 GetExpectedAnnualizedPriceGrowth(input);
-            } while (!InputValidator.ValidateExpectedAnnualizedPriceGrowth(input.ExpectedAnnualizedPriceGrowth));
+            } while (!InputValidator.ValidateExpectedAnnualizedPriceGrowth(input.ExpectedAnnualizedPriceChange));
         }
 
         private void GetExpectedAnnualizedPriceGrowth(Input input)
         {
             Console.WriteLine(InputMessage.ExpectedPriceGrowth);
             var priceGrowth = Console.ReadLine();
-            input.ExpectedAnnualizedPriceGrowth = priceGrowth.GetDecimal();
+            input.ExpectedAnnualizedPriceChange = priceGrowth.GetDecimal();
         }
     }
 }

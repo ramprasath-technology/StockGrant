@@ -20,7 +20,7 @@ namespace Validator.VestedStockValue
                     return $"{ErrorPrefix.GetRandomErrorPrefix()} The year should be greater than the beginning year";
                 case InputPropertyName.ExpectedAnnualGrantChange:
                     return $"{ErrorPrefix.GetRandomErrorPrefix()} The amount should be a valid decimal and can be a negative or positive number";
-                case InputPropertyName.ExpectedAnnualizedPriceGrowth:
+                case InputPropertyName.ExpectedAnnualizedPriceChange:
                     return $"{ErrorPrefix.GetRandomErrorPrefix()} The amount should be a valid decimal and can be a negative or positive number";
                 default:
                     return $"{ErrorPrefix.GetRandomErrorPrefix()} Enter a valid value";
