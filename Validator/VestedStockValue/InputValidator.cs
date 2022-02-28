@@ -35,14 +35,14 @@
             return true;
         }
 
-        public static bool ValidateGrantEndYear(int endYear)
+        public static bool ValidateGrantEndYear(int endYear, int beginYear)
         {
-            if (endYear < DateTime.Now.Year)
+            if (endYear < beginYear)
                 return false;
             return true;
         }
 
-        public static bool ValidateExpectedAnnualGrantIncrease(decimal annualGrantChange)
+        public static bool ValidateExpectedAnnualGrantChange(decimal annualGrantChange)
         {
             return true;
         }

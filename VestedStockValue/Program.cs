@@ -25,6 +25,14 @@ static IInputProcessor GetProcessor(string property)
             return new InitialGrantAmountProcessor();
         case InputPropertyName.InitialStockPrice:
             return new InitialStockPriceProcessor();
+        case InputPropertyName.VestingPeriod:
+            return new VestingPeriodProcessor();
+        case InputPropertyName.EndingYear:
+            return new EndingYearProcessor();
+        case InputPropertyName.ExpectedAnnualGrantChange:
+            return new ExpectedAnnualGrantChangeProcessor();
+        case InputPropertyName.ExpectedAnnualizedPriceGrowth:
+            return new ExpectedAnnualizedPriceGrowth();
         default:
             throw new NotImplementedException();
     }

@@ -15,7 +15,7 @@
 
         private void GetInitialGrantAmount(Input input)
         {
-            Console.WriteLine(InputMessage.InitialGrantAmount);
+            Console.WriteLine(InputMessage.InitialStockPrice);
             var amount = Console.ReadLine();
             input.InitialGrantAmount = amount.GetDecimal();
         }
