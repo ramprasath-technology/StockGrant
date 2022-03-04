@@ -10,7 +10,8 @@ namespace Model
     {
         public decimal StockPrice { get; set; }
         public decimal GrantAmount { get; set; }
-        public decimal StockCount { get; set; }
+        public decimal GrantedStockCount { get; set; }
         public decimal VestedValue { get; set; }
+        public decimal VestedStockCount { get; set; }
     }
 }

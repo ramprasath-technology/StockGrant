@@ -16,7 +16,7 @@
             return true;
         }
 
-        public static bool ValidateInitialPrice(decimal priceDuringInitialGrant)
+        public static bool ValidateInitialStockPrice(decimal priceDuringInitialGrant)
         {
             if (priceDuringInitialGrant < 0)
                 return false;

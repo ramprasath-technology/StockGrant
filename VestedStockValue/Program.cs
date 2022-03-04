@@ -13,7 +13,7 @@ try
 
     var calculator = serviceProvider.GetService<IVestedStockValueCalculator>();
     var vestedValue = await calculator.GetVestedAmount(input);
-    Console.WriteLine(vestedValue);
+    Console.WriteLine($"The vested amount is {vestedValue}");
 }
 catch (Exception ex)
 {

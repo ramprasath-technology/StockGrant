@@ -29,7 +29,12 @@ namespace VestedStockValue.Computation
             await stockPriceTask;
             await stockGrantTask;
 
-            return 0m;
+            ComputeStockCountAtGrantTime(input, yearComputationMap);
+            ComputeVestingShareCount(input, yearComputationMap);
+            ComputeVestingAmount(input, yearComputationMap);
+
+            var calculators = yearComputationMap.Values.ToList();
+            return calculators.Sum(x => x.VestedValue);
         }
 
         private void InitializeComputation(Input input,
@@ -68,10 +73,46 @@ namespace VestedStockValue.Computation
             var expectedGrantAmount = initialGrantAmount;
             yearComputationMap[beginningYear].GrantAmount = initialGrantAmount;
 
-            for (var year = beginningYear + 1; year <= endingYear; year++)
+            for (var year = beginningYear; year <= endingYear; year++)
             {
                 expectedGrantAmount = expectedGrantAmount + (expectedGrantAmount * percentageChange / 100);
                 yearComputationMap[year].GrantAmount = expectedGrantAmount;
+            }
+        }
+
+        private void ComputeStockCountAtGrantTime(Input input,
+            Dictionary<int, Calculator> yearComputationMap)
+        {
+            foreach (var entry in yearComputationMap)
+            {
+                entry.Value.GrantedStockCount = entry.Value.GrantAmount / entry.Value.StockPrice;
+            }
+        }
+
+        private void ComputeVestingShareCount(Input input,
+            Dictionary<int, Calculator> yearComputationMap)
+        {
+            foreach (var entry in yearComputationMap)
+            {
+                var grantYear = entry.Key;
+                var calculator = entry.Value;
+                var vestingBeginYear = grantYear + 1;
+                var vestingEndYear = Math.Min(vestingBeginYear + input.VestingPeriod - 1, input.EndingYear.Year);
+                var vestingAmountPerYear = calculator.GrantedStockCount / input.VestingPeriod;
+                for (var year = vestingBeginYear; year <= vestingEndYear; year++)
+                {
+                    yearComputationMap[year].VestedStockCount += vestingAmountPerYear;
+                }
+            }
+        }
+
+        private void ComputeVestingAmount(Input input,
+            Dictionary<int, Calculator> yearComputationMap)
+        {
+            foreach (var entry in yearComputationMap)
+            {
+                var calculator = entry.Value;
+                calculator.VestedValue = calculator.VestedStockCount * calculator.StockPrice;
             }
         }
     }

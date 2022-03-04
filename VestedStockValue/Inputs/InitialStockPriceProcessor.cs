@@ -9,15 +9,15 @@
             {
                 if (++iteration > 1)
                     Console.WriteLine(InputValidationMessage.GetValidationMessage(InputPropertyName.InitialStockPrice));
-                GetInitialGrantAmount(input);
-            } while (!InputValidator.ValidateInitialGrantAmount(input.InitialStockPrice));
+                GetInitialStockPrice(input);
+            } while (!InputValidator.ValidateInitialStockPrice(input.InitialStockPrice));
         }
 
-        private void GetInitialGrantAmount(Input input)
+        private void GetInitialStockPrice(Input input)
         {
             Console.WriteLine(InputMessage.InitialStockPrice);
             var amount = Console.ReadLine();
-            input.InitialGrantAmount = amount.GetDecimal();
+            input.InitialStockPrice = amount.GetDecimal();
         }
     }
 }
