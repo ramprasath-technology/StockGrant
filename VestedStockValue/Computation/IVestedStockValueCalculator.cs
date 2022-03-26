@@ -8,6 +8,6 @@ namespace VestedStockValue.Computation
 {
     internal interface IVestedStockValueCalculator
     {
-        Task<decimal> GetVestedAmount(Input input);
+        Task<Dictionary<int, Calculator>> GetVestedAmount(Input input);
     }
 }

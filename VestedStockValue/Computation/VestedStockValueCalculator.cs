@@ -13,7 +13,7 @@ namespace VestedStockValue.Computation
 
         }
 
-        public async Task<decimal> GetVestedAmount(Input input)
+        public async Task<Dictionary<int, Calculator>> GetVestedAmount(Input input)
         {
             var yearComputationMap = new Dictionary<int, Calculator>(); 
             InitializeComputation(input, yearComputationMap);
@@ -33,8 +33,7 @@ namespace VestedStockValue.Computation
             ComputeVestingShareCount(input, yearComputationMap);
             ComputeVestingAmount(input, yearComputationMap);
 
-            var calculators = yearComputationMap.Values.ToList();
-            return calculators.Sum(x => x.VestedValue);
+            return yearComputationMap;
         }
 
         private void InitializeComputation(Input input,

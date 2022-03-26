@@ -1,19 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using VestedStockValue.Computation;
 
 try
 {
-    var serviceProvider = new ServiceCollection()
-        .AddSingleton<IVestedStockValueCalculator, VestedStockValueCalculator>()
-        .BuildServiceProvider();
-
-    Console.WriteLine(InputMessage.WelcomeMessage);
-    var input = GetInputValues();  
-    Console.WriteLine(InputMessage.ComputationInProgressMessage);
-
-    var calculator = serviceProvider.GetService<IVestedStockValueCalculator>();
-    var vestedValue = await calculator.GetVestedAmount(input);
-    Console.WriteLine($"The vested amount is {vestedValue}");
+    var input = GetUserInput();
+    var yearVestedAmountMap = await GetVestedAmount(input);
+    PrintVestedAmount(yearVestedAmountMap);
 }
 catch (Exception ex)
 {
@@ -54,6 +47,39 @@ static IInputProcessor GetProcessor(string property)
             throw new NotImplementedException();
     }
 }
+
+static Input GetUserInput()
+{
+    Console.WriteLine(InputMessage.WelcomeMessage);
+    var input = GetInputValues();
+    Console.WriteLine(InputMessage.ComputationInProgressMessage);
+    return input; ;
+}
+
+static async Task<Dictionary<int, Calculator>> GetVestedAmount(Input input)
+{
+    var serviceProvider = new ServiceCollection()
+       .AddSingleton<IVestedStockValueCalculator, VestedStockValueCalculator>()
+       .BuildServiceProvider();
+    var calculator = serviceProvider.GetService<IVestedStockValueCalculator>();
+    var yearVestedAmountMap = await calculator.GetVestedAmount(input);
+    return yearVestedAmountMap;
+}
+
+static void PrintVestedAmount(Dictionary<int, Calculator> yearVestedAmountMap)
+{
+    var optimalSpace = "     ";
+    Console.WriteLine($"Year{optimalSpace}Count{optimalSpace}Vested Value");
+    foreach (var entry in yearVestedAmountMap)
+    {
+        Console.WriteLine($"{entry.Key}{optimalSpace}{entry.Value.VestedStockCount.RoundDecimal()}{optimalSpace}{entry.Value.VestedValue.RoundDecimal()}");
+    }
+    Console.WriteLine($"The total vested amount is {yearVestedAmountMap.Values.Sum(x => x.VestedValue).RoundDecimal()}");
+}
+
+
+
+
 
 
 
